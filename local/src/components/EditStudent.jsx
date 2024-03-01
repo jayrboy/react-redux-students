@@ -1,24 +1,48 @@
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { editStudent } from '../redux/studentSlice'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
+import { editStudent } from '../redux/student/studentActions'
 
-const EditStudent = () => {
-  const student = useSelector((state) =>
-    state.students.studentItems.find(
-      (s) => s.id === window.location.pathname.split('/')[2]
-    )
-  )
-  const dispatch = useDispatch()
+function EditStudent() {
+  const { id } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const studentsFromStore = useSelector((state) => state.student.students)
 
-  const [name, setName] = useState(student ? student.name : '')
-  const [score, setScore] = useState(student ? student.score : '')
+  const [form, setForm] = useState({
+    id: '',
+    name: '',
+    score: '',
+  })
 
-  const onSubmitForm = (event) => {
+  useEffect(() => {
+    const student = getCurrentStudent(id)
+    if (student) {
+      setForm({
+        id: student.id,
+        name: student.name,
+        score: student.score,
+      })
+    } else {
+      navigate('/')
+    }
+  }, [id, dispatch])
+
+  function getCurrentStudent(id) {
+    const student = studentsFromStore.find((item) => item.id === id)
+    return student
+  }
+
+  function handleChange(event) {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    })
+  }
+
+  function onSubmitForm(event) {
     event.preventDefault()
-    const updatedStudent = { id: student.id, name, score }
-    dispatch(editStudent(updatedStudent))
+    dispatch(editStudent(form))
     navigate('/')
   }
 
@@ -33,8 +57,8 @@ const EditStudent = () => {
                 type="text"
                 className="form-control"
                 name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={form.name}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -44,8 +68,8 @@ const EditStudent = () => {
                 type="text"
                 className="form-control"
                 name="score"
-                value={score}
-                onChange={(e) => setScore(e.target.value)}
+                value={form.score}
+                onChange={handleChange}
               />
             </div>
             <div className="form-group text-center pt-3">

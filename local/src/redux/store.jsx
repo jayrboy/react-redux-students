@@ -1,9 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { createStore, combineReducers, applyMiddleware } from '@reduxjs/toolkit'
+import { thunk } from 'redux-thunk'
 
-import studentReducer from './studentSlice'
+import studentReducer from './student/studentReducer'
 
-export const store = configureStore({
-  reducer: {
-    students: studentReducer,
-  },
+const reducer = combineReducers({
+  student: studentReducer,
 })
+
+const store = createStore(reducer, applyMiddleware(thunk))
+
+export default store

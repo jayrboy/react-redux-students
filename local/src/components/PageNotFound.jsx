@@ -1,4 +1,4 @@
-const PageNotFound = () => {
+function PageNotFound() {
   return (
     <div className="row mt-5 mb-5">
       <div className="col-10 text-center p-5 mx-auto">

@@ -1,28 +1,37 @@
+import react from '../assets/react.svg'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
-import { addStudent } from '../redux/studentSlice'
+import { addStudent } from '../redux/student/studentActions'
 
-import react from '../assets/react.svg'
-
-const AddStudent = () => {
-  const dispatch = useDispatch()
+function AddStudent() {
+  const [form, setForm] = useState({
+    id: '',
+    name: '',
+    score: '',
+  })
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const [name, setName] = useState('')
-  const [score, setScore] = useState('')
+  function handleChange(event) {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    })
+  }
 
-  const onSubmitForm = (event) => {
+  function onSubmitForm(event) {
     event.preventDefault()
     const newData = {
       id: new Date().getTime().toString(),
-      name: name,
-      score: score,
+      name: form.name,
+      score: form.score,
     }
     dispatch(addStudent(newData))
     navigate('/')
   }
+
   return (
     <div className="row mt-3 mb-5 ml-5 mr-5">
       <div className="card col-12 col-sm-8 col-lg-6 mx-auto">
@@ -41,8 +50,8 @@ const AddStudent = () => {
                 type="text"
                 className="form-control"
                 name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={form.name}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -52,8 +61,8 @@ const AddStudent = () => {
                 type="text"
                 className="form-control"
                 name="score"
-                value={score}
-                onChange={(e) => setScore(e.target.value)}
+                value={form.score}
+                onChange={handleChange}
               />
             </div>
             <div className="form-group text-center pt-3">
@@ -71,5 +80,4 @@ const AddStudent = () => {
     </div>
   )
 }
-
 export default AddStudent
