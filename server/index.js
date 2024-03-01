@@ -18,12 +18,12 @@ app.use((req, res, next) => {
 })
 
 let students = [
-  { id: '1', name: 'Jakkrit', score: 90 },
-  { id: '2', name: 'Somsri', score: 80 },
-  { id: '3', name: 'Sombat', score: 75 },
-  { id: '4', name: 'Suwichan', score: 60 },
-  { id: '5', name: 'Romyen', score: 55 },
-  { id: '6', name: 'Natipong', score: 50 },
+  { id: '1', name: 'Jakkrit', email: 'jayr.jakkrit@hotmail.com' },
+  { id: '2', name: 'Boonmee', email: 'Boonmee55@gmail.com' },
+  { id: '3', name: 'Tony', email: 'tonylove3000@ironman.com' },
+  { id: '4', name: 'Suwichan', email: 'suwichang69@hotmail.com' },
+  { id: '5', name: 'Somying', email: 'somying@gmail.com' },
+  { id: '6', name: 'Somsri', email: 'somsri@hotmail.com' },
 ]
 
 app.get('/api/students', (req, res) => {
@@ -47,7 +47,7 @@ app.get('/api/students/:id', (req, res) => {
 
 app.post('/api/students/', (req, res) => {
   const studentName = req.body.name
-  const studentScore = req.body.score
+  const studentEmail = req.body.email
 
   if (studentName.length <= 0) {
     res.status(400).send('Error cannot add student!')
@@ -55,7 +55,7 @@ app.post('/api/students/', (req, res) => {
     const student = {
       id: uuidv4(),
       name: studentName,
-      score: studentScore,
+      email: studentEmail,
     }
     students.push(student)
     res.send(student)
@@ -78,7 +78,7 @@ app.delete('/api/students/:id', (req, res) => {
 app.put('/api/students/:id', (req, res) => {
   const id = req.params.id
   const studentName = req.body.name
-  const studentScore = req.body.score
+  const studentEmail = req.body.email
 
   if (studentName.length < 1) {
     res.status(400).send('Error cannot update student!')
@@ -86,7 +86,7 @@ app.put('/api/students/:id', (req, res) => {
     let student = students.find((item) => item.id === id)
     if (student) {
       student.name = studentName
-      student.score = studentScore
+      student.email = studentEmail
       res.send(student)
     } else {
       res.status(400).send('Cannot find student to update')

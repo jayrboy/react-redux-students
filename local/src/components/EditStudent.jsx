@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-import { editStudent } from '../redux/student/studentActions'
+import { editStudent } from '../redux/studentSlice'
 
 function EditStudent() {
   const { id } = useParams()
@@ -12,7 +12,7 @@ function EditStudent() {
   const [form, setForm] = useState({
     id: '',
     name: '',
-    score: '',
+    email: '',
   })
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function EditStudent() {
       setForm({
         id: student.id,
         name: student.name,
-        score: student.score,
+        email: student.email,
       })
     } else {
       navigate('/')
@@ -63,12 +63,12 @@ function EditStudent() {
               />
             </div>
             <div className="form-group">
-              <label>Score</label>
+              <label>Email</label>
               <input
-                type="text"
+                type="email"
                 className="form-control"
-                name="score"
-                value={form.score}
+                name="email"
+                value={form.email}
                 onChange={handleChange}
               />
             </div>

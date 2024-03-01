@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getStudentLists } from '../redux/student/studentActions'
+import { getStudentLists } from '../redux/studentSlice'
 import Student from './Student'
 
 function StudentLists() {

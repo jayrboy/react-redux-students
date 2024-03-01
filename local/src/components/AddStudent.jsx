@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
-import { addStudent } from '../redux/student/studentActions'
+import { addStudent } from '../redux/studentSlice'
 
 function AddStudent() {
   const [form, setForm] = useState({
     id: '',
     name: '',
-    score: '',
+    email: '',
   })
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ function AddStudent() {
     const newData = {
       id: new Date().getTime().toString(),
       name: form.name,
-      score: form.score,
+      email: form.email,
     }
     dispatch(addStudent(newData))
     navigate('/')
@@ -56,12 +56,12 @@ function AddStudent() {
               />
             </div>
             <div className="form-group">
-              <label>Score</label>
+              <label>Email</label>
               <input
-                type="text"
+                type="email"
                 className="form-control"
-                name="score"
-                value={form.score}
+                name="email"
+                value={form.email}
                 onChange={handleChange}
               />
             </div>
