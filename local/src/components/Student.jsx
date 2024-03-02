@@ -11,10 +11,7 @@ function Student({ id, name, email }) {
         name: {name}
         <button
           className="btn btn-outline-danger btn-sm float-end mx-1"
-          onClick={() => {
-            dispatch(delStudent(id))
-            dispatch(deletedStudent(id))
-          }}
+          onClick={() => dispatch(delStudent(id))}
         >
           ลบ
         </button>

@@ -8,7 +8,7 @@
     "start": "node --watch index.js "
   },
   "keywords": [],
-  "author": "",
+  "author": "Jakkrit Onsomkrit",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.3",
